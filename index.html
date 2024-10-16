@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Display</title>
+    <style>
+        #calling {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; 
+            
+            
+        }
+        .naidu {
+            border: 2px solid rgb(0, 0, 0);
+            margin: 10px;
+            border-radius: 5px;
+            padding: 10px;
+            width: 150px; 
+            text-align: center; 
+            background-color:rgba(232, 68, 101, 0.752);
+        }
+        .naidu img {
+            height: 100px;
+            width: 100px;
+            object-fit: cover;
+           background-color: black;
+        }
+       
+        
+    </style>
+</head>
+<body>
+    <div id="calling"></div>
+
+    <script>
+        let call = document.getElementById('calling');
+
+        async function getdata() {
+            const response = await fetch('https://dummyjson.com/products');
+            const data = await response.json();
+            console.log(data);
+            let adata = data.products;
+
+            const myfun = adata.map(a => {
+                return (
+                    `<div class="naidu">
+                        <h2>${a.title.slice(0, 10)}</h2>
+                        <img src="${a.images[0]}" alt="${a.title}">
+                        <p>${a.description.slice(0, 20)}...</p>
+                    </div>`
+                );
+            }).join(''); 
+            call.innerHTML = myfun; 
+        }
+        
+        getdata();
+    </script>
+</body>
+</html>
